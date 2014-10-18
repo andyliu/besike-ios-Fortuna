@@ -22,27 +22,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // TODO: load quotations from JSON files
         // Assertions to make sure that the quotetions are load.
         
-        let path: String! = NSBundle.mainBundle().pathForResource("positiveQuotes", ofType: "json")
+        let positiveQuotespath: String! = NSBundle.mainBundle().pathForResource("positiveQuotes", ofType: "json")
+        positiveQuotes = loadJSON(positiveQuotespath) as [String]
+
         
-        // loadJSON(path) as positiveQuotes
-        
-        positiveQuotes = loadJSON(path) as [String]
-       // for quotes in loadJSON(path) as [String]! {
-          //  if var temp: String = quotes {
-           //    positiveQuotes.append(quotes)
-           // println(quotes)
-        
-        //   }
-     //   }
-        
-        let nq_path: String! = NSBundle.mainBundle().pathForResource("negativeQuotes", ofType: "json")
-        
-      //  for quotes in loadJSON(nq_path) as [String] {
-         //   if quotes {
-            //negativeQuotes.append(quotes)
-           // }
-     //   }
-        negativeQuotes = loadJSON(nq_path) as [String]
+        let negativeQuotespath: String! = NSBundle.mainBundle().pathForResource("negativeQuotes", ofType: "json")
+        negativeQuotes = loadJSON(negativeQuotespath) as [String]
         
         assert(positiveQuotes.count > 0, "should load positive quotes")
         assert(negativeQuotes.count > 0, "should load positive quotes")
