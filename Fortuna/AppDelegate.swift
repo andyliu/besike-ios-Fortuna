@@ -12,13 +12,62 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    var positiveQuotes: [String]!
+    var negativeQuotes: [String]!
+    var count = 0
+    
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        // TODO: load quotations from JSON files
+        // Assertions to make sure that the quotetions are load.
+        
+        let path: String! = NSBundle.mainBundle().pathForResource("positiveQuotes", ofType: "json")
+        
+        // loadJSON(path) as positiveQuotes
+        
+        positiveQuotes = loadJSON(path) as [String]
+       // for quotes in loadJSON(path) as [String]! {
+          //  if var temp: String = quotes {
+           //    positiveQuotes.append(quotes)
+           // println(quotes)
+        
+        //   }
+     //   }
+        
+        let nq_path: String! = NSBundle.mainBundle().pathForResource("negativeQuotes", ofType: "json")
+        
+      //  for quotes in loadJSON(nq_path) as [String] {
+         //   if quotes {
+            //negativeQuotes.append(quotes)
+           // }
+     //   }
+        negativeQuotes = loadJSON(nq_path) as [String]
+        
+        assert(positiveQuotes.count > 0, "should load positive quotes")
+        assert(negativeQuotes.count > 0, "should load positive quotes")
+        
+        println(positiveQuotes.count)
+        println(negativeQuotes.count)
+        
         return true
     }
-
+    
+    func loadJSON(path: String) -> AnyObject? {
+        
+       // let path = NSBundle.mainBundle().pathForResource("positiveQuotes", ofType: "json")
+        // Load data from path
+        let data = NSData(contentsOfFile: path)
+        assert(data != nil , "Failed to read data from : \(path)")
+        
+        // Path JSON data
+        var err: NSError?
+        let json: AnyObject? = NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.allZeros, error: &err)
+        assert(err == nil, "Error parsing json: \(err)")
+        
+        return  json
+    }
+    
     func applicationWillResignActive(application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
